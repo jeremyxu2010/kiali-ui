@@ -66,6 +66,11 @@ const containerStyle = style({
   height: 'calc(100vh - 60px)' // View height minus top bar height
 });
 
+const kioskContainerStyle = style({
+  minHeight: '350px',
+  height: 'calc(100vh - 10px)' // View height minus top bar height
+});
+
 const cytoscapeGraphContainerStyle = style({ flex: '1', minWidth: '350px', zIndex: 0, paddingRight: '5px' });
 const cytoscapeGraphWrapperDivStyle = style({ position: 'relative' });
 const cytoscapeToolbarWrapperDivStyle = style({
@@ -203,10 +208,16 @@ export default class GraphPage extends React.Component<GraphPageProps, GraphPage
       injectServiceNodes: this.props.injectServiceNodes
     };
 
+    const urlParams = new URLSearchParams(window.location.search);
+    let conStyle = containerStyle;
+    if (urlParams.get('kiosk') === 'true') {
+      conStyle = kioskContainerStyle;
+    }
+
     return (
       <>
         <StatefulTour steps={graphHelp} isOpen={this.state.showHelp} onClose={this.toggleHelp} />
-        <FlexView className={containerStyle} column={true}>
+        <FlexView className={conStyle} column={true}>
           <Breadcrumb title={true}>
             <Breadcrumb.Item active={true}>
               Graph{' '}

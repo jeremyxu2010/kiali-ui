@@ -16,6 +16,10 @@ export const makeNamespaceGraphUrlFromParams = (params: GraphParamsType): string
   if (namespace !== 'all') {
     queryParams += `&namespaces=${namespace}`;
   }
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('kiosk') === 'true') {
+    queryParams += '&kiosk=true';
+  }
   return `/graph/namespaces?` + queryParams;
 };
 

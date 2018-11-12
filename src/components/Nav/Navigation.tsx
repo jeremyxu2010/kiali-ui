@@ -40,6 +40,10 @@ class Navigation extends React.Component<PropsType> {
   setDocLayout = () => {
     if (document.documentElement) {
       document.documentElement.className = this.props.authenticated ? 'layout-pf layout-pf-fixed' : 'login-pf';
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('kiosk') === 'true') {
+        document.documentElement.className += ' kiosk';
+      }
     }
   };
 
